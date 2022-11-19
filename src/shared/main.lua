@@ -8,8 +8,7 @@
 
 WeaponShop = {
     shops = {
-        {name = "Weapon Shop", vector3(21.70, -1106.41, 29.80)},
-        {name = "Weapon Shop", vector3(810.19, -2157.33, 29.62)}
+        {name = "Weapon Shop", position = vector3(22.14,-1106.94, 29.0)}
     },
     weapons = {
         {name = "Pistol", hash = "WEAPON_PISTOL", price = 500},
