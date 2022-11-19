@@ -7,7 +7,7 @@
 ---@author Walker974
 
 local ESX;
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end);
 
 CreateThread(function()
     while (true) do
@@ -15,13 +15,12 @@ CreateThread(function()
         local ped_position = GetEntityCoords(PlayerPedId())
         for _, v in ipairs(WeaponShop.shops) do
             local distance = #(ped_position - v.position)
-            if (distance < 10) then
+            if (distance < 5) then
                 timer = 5
-                DrawMarker(2, v.position.x, v.position.y, v.position.z - 0.95, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 255, 255, 255, 100, 0, 0, 0, 0, 0, 0, 0)
-                if (distance < 1) then
+                if (distance < 1.5) then
                     ESX.ShowHelpNotification("Appuyez sur ~INPUT_CONTEXT~ pour accéder au ~b~magasin d'armes~s~.")
-                    if (IsControlJustReleased(0, 38)) then
-
+                    if (IsControlJustPressed(0, 38)) then
+                        OpenWeaponShopMenu(v.position)
                     end
                 end
             end
