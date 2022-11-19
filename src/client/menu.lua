@@ -13,13 +13,17 @@ main_menu:isVisible(function(items)
     items:Separator("Bienvenue dans le magasin d'armes.")
     for _, v in ipairs(WeaponShop.weapons) do
         local has_weapon = HasPedGotWeapon(PlayerPedId(), GetHashKey(v.hash), false);
-        items:Button(v.name, nil, {RightLabel = has_weapon and "~r~Vous l'avez" or v.price.."$"}, has_weapon, function(_, _, Selected)
-            if (Selected) then
+        items:Button(v.name, nil, {RightLabel = has_weapon and "~r~Vous l'avez" or v.price.."$"}, not has_weapon, {
+            onSelected = function()
                 TriggerServerEvent("walker_weaponshop:buyWeapon", v.hash, v.price)
             end
-        end)
+        })
     end
 end)
+
+main_menu.Closed = function()
+    menuCurrentlyOpen = false;
+end
 
 ---@param shop_coords table
 function OpenWeaponShopMenu(shop_coords)
@@ -32,8 +36,8 @@ function OpenWeaponShopMenu(shop_coords)
     CreateThread(function()
         while (menuCurrentlyOpen) do
             local dst = #(GetEntityCoords(PlayerPedId()) - shop_coords);
-            if (dst > 5.0) then
-                main_menu:Close();
+            if (dst > 1.5) then
+                main_menu:close();
                 menuCurrentlyOpen = false;
                 break;
             end
